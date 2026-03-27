@@ -78,7 +78,7 @@ mt7615_tm_set_tx_power(struct mt7615_phy *phy)
 	skb_put_data(skb, &req_hdr, sizeof(req_hdr));
 	data = skb_put_data(skb, eep + MT_EE_NIC_CONF_0, len);
 
-	target_chains = mt7615_ext_pa_enabled(dev, band) ? 1 : n_chains;
+	target_chains = !mt7615_ext_pa_enabled(dev, band) ? 1 : n_chains;
 	for (i = 0; i < target_chains; i++) {
 		ret = mt7615_eeprom_get_target_power_index(dev, chandef->chan, i);
 		if (ret < 0) {
