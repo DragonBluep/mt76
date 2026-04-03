@@ -13,7 +13,11 @@
 #include "../trace.h"
 #include "../dma.h"
 
+#ifdef CONFIG_ARCH_MEDIATEK
+static bool wed_enable = true;
+#else
 static bool wed_enable;
+#endif
 module_param(wed_enable, bool, 0644);
 MODULE_PARM_DESC(wed_enable, "Enable Wireless Ethernet Dispatch support");
 
