@@ -14,8 +14,10 @@
 #include "../trace.h"
 #include "../dma.h"
 
-static bool wed_enable;
+static bool wed_enable = IS_ENABLED(CONFIG_ARM64) &&
+			 IS_ENABLED(CONFIG_NET_MEDIATEK_SOC_WED);
 module_param(wed_enable, bool, 0644);
+MODULE_PARM_DESC(wed_enable, "Enable Wireless Ethernet Dispatch support");
 
 #define INVALID_REG_ADDR	0xffffffff
 
