@@ -11,7 +11,7 @@
 #include "mac.h"
 #include "eeprom.h"
 
-static bool prefer_offload_fw = true;
+static bool prefer_offload_fw;
 module_param(prefer_offload_fw, bool, 0644);
 MODULE_PARM_DESC(prefer_offload_fw,
 		 "Prefer client mode offload firmware (MT7663)");
