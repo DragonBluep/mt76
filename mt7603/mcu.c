@@ -417,6 +417,8 @@ int mt7603_mcu_set_channel(struct mt7603_dev *dev)
 	if (dev->mphy.antenna_mask == 3)
 		tx_power -= 6;
 	tx_power = min(tx_power, dev->tx_power_limit);
+	if (tx_power & ~0x3f)
+		tx_power = 0;
 
 	dev->mphy.txpower_cur = tx_power;
 
