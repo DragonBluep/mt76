@@ -3664,6 +3664,7 @@ int mt7915_mcu_set_txpower_sku(struct mt7915_phy *phy)
 	struct sk_buff *skb;
 
 	tx_power = mt76_get_power_bound(mphy, hw->conf.power_level);
+	tx_power = clamp_t(int, tx_power, 0, 0x3f);
 	if (phy->sku_limit_en) {
 		tx_power = mt76_get_rate_power_limits(mphy, mphy->chandef.chan,
 						      &la, tx_power);

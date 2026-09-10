@@ -80,6 +80,7 @@ mt76x2_config(struct ieee80211_hw *hw, int radio_idx, u32 changed)
 						       dev->txpower_conf);
 		/* convert to per-chain power for 2x2 devices */
 		dev->txpower_conf -= 6;
+		dev->txpower_conf = clamp_t(int, dev->txpower_conf, 0, 0x3f);
 
 		if (test_bit(MT76_STATE_RUNNING, &dev->mphy.state)) {
 			mt76x2_phy_set_txpower(dev);

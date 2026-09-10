@@ -417,6 +417,7 @@ int mt7603_mcu_set_channel(struct mt7603_dev *dev)
 
 	tx_power = mt76_get_power_bound(&dev->mphy, hw->conf.power_level);
 	tx_power = min(tx_power, dev->tx_power_limit);
+	tx_power = clamp_t(s8, tx_power, 0, 0x3f);
 
 	dev->mphy.txpower_cur = tx_power;
 

@@ -2093,6 +2093,7 @@ static void mt7615_mcu_set_txpower_sku(struct mt7615_phy *phy, u8 *sku)
 	};
 
 	tx_power = mt76_get_power_bound(mphy, hw->conf.power_level);
+	tx_power = clamp_t(s8, tx_power, 0, 0x3f);
 	tx_power = mt76_get_rate_power_limits(mphy, mphy->chandef.chan,
 					      &limits, tx_power);
 	mphy->txpower_cur = tx_power;
