@@ -225,10 +225,14 @@ error:
 
 static void mt76x0e_cleanup(struct mt76x02_dev *dev)
 {
+	int i;
+
 	clear_bit(MT76_STATE_INITIALIZED, &dev->mphy.state);
 	tasklet_disable(&dev->mt76.pre_tbtt_tasklet);
 	mt76x0_chip_onoff(dev, false, false);
 	mt76x0e_stop_hw(dev);
+	mt76_for_each_q_rx(&dev->mt76, i)
+		napi_disable(&dev->mt76.napi[i]);
 	mt76_dma_cleanup(&dev->mt76);
 	mt76x02_mcu_cleanup(dev);
 }

@@ -564,8 +564,12 @@ int mt7603_register_device(struct mt7603_dev *dev)
 
 void mt7603_unregister_device(struct mt7603_dev *dev)
 {
+	int i;
+
 	tasklet_disable(&dev->mt76.pre_tbtt_tasklet);
 	mt76_unregister_device(&dev->mt76);
+	mt76_for_each_q_rx(&dev->mt76, i)
+		napi_disable(&dev->mt76.napi[i]);
 	mt7603_mcu_exit(dev);
 	mt7603_dma_cleanup(dev);
 	mt76_free_device(&dev->mt76);
